@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Products</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="./css/main.css">
+	<script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmznrc1aQ_MUdx2COBgro3CMI3zzfrvn4"></script>
+</head>
+<body>
+
+<div class="container">
+	<div class="row panel panel-default">
+		<div class="col-xs-12 panel-body">
+			<!-- <p>HELLO: <input data-bind="value: hello" /></p>
+		  <p>WORLD: <input data-bind="value: world" /></p>
+		  <h2><span data-bind="text: fullText"> </span>!</h2> -->
+			 <input type="text"
+				 class="form-control"
+				 placeholder="Point of Interest"
+				 data-bind="textInput: textFilter" />
+
+			<ul id="cat-list" data-bind="foreach: poi_filterred">
+	        <li data-bind="text: name"></li>
+	    </ul>
+			<span data-bind="text: textFilter"></span>
+		</div>
+	</div>
+	<div class="row map-container">
+		<div id="map" class="col-xs-12">
+		</div>
+	</div>
+</div>
+
+<input type="text" id="typeahead" />
+
+	<script src="./js/bundle.js"></script>
+
+
+</body>
+</html>
