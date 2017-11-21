@@ -6,3 +6,7 @@ body{
 .map-container #map{
   min-height: 500px;
 }
+
+#cat-list{
+  .current{font-weight: bold;}
+}

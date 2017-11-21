@@ -22,7 +22,7 @@
 				 data-bind="textInput: textFilter" />
 
 			<ul id="cat-list" data-bind="foreach: poi_filterred">
-	        <li data-bind="text: name, click: $parent.item_click"></li>
+	        <li data-bind="text: name, click: $parent.item_click, css:{current: $parent.isCurrentItem($data) }"></li>
 	    </ul>
 			<span data-bind="text: textFilter"></span>
 		</div>
@@ -32,6 +32,7 @@
 		</div>
 	</div>
 </div>
+<span data-bind="text: currentItem"></span>
 
 <input type="text" id="typeahead" />
 
