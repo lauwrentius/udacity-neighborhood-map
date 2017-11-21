@@ -17,31 +17,44 @@ class Map{
     });
     this.markers = [];
   }
-  displayMarker(latlng, isHidden){
-    latlng.then(val=>{
-      console.log(latlng);
-      var marker = this.markers.find(m=>{
-        return ((m.getPosition().lat() === val.lat)&&
-          (m.getPosition().lng() === val.lng));
-      });
-      console.log("ASDASDASD", isHidden);
-      // if(marker){
-      //   console.log(this.markers);
-      marker.setVisible(isHidden);
-      // }
+  displayMarkers(latlngArr){
+    Promise.all(latlngArr).then(arr=>{
+      //console.log("DISPLAY",addMarker);
+      // if(!markers) return;
+      console.log(arr);
+      for(var i=0;i<this.markers.length;i++){
+        var marker = arr.find(m=>{
+          console.log(this.markers[i], m);
+          return ((this.markers[i].getPosition().lat() === m.lat)&&
+            (this.markers[i].getPosition().lng() === m.lng))
+        });
+        console.log("FIND", marker);
+        if(marker)
+          this.markers[i].setVisible(true);
+        else
+          this.markers[i].setVisible(false);
+      }
     });
+    // latlng.then(val=>{
+    //   console.log(latlng);
+    //   var marker = this.markers.find(m=>{
+    //     return ((m.getPosition().lat() === val.lat)&&
+    //       (m.getPosition().lng() === val.lng));
+    //   });
+    //
+    //   if(marker){
+    //     console.log("ASDASDASD", marker.getPosition().lat(),val.lat, marker.getPosition().lng(), val.lng, isHidden);
+    //     marker.setVisible(isHidden);
+    //   }
+    // });
   }
   addMarker(latlng){
-    latlng.then(val=>{
-      if(!val) return;
-      this.markers.push(new google.maps.Marker({
-        map: this.map,
-        draggable: false,
-        animation: google.maps.Animation.DROP,
-        position: val
-      }));
-      console.log(this.markers);
-    });
+    this.markers.push(new google.maps.Marker({
+      map: this.map,
+      draggable: false,
+      animation: google.maps.Animation.DROP,
+      position: latlng
+    }));
   }
 }
 
@@ -98,7 +111,10 @@ var ViewModel = function() {
       for(var i=0; i<poi_data.length; i++){
         var poi = new PoI(poi_data[i].name, poi_data[i].id);
         this.poi_arr.push(poi);
-        this.map.addMarker(poi.latlng);
+        poi.latlng.then(latlng=>{
+          if(latlng)
+            this.map.addMarker(latlng);
+        });
       }
     }
 
@@ -108,12 +124,13 @@ var ViewModel = function() {
     }
     this.textFilter = ko.observable("");
     this.poi_filterred = ko.computed(()=>{
-      return this.poi_arr.slice().filter(poi => {
-        var res = (new RegExp(this.textFilter(),'i')).test(poi.name);
-        console.log(res);
-        this.map.displayMarker(poi.latlng, res);
-        return res;
+      console.log("NRE");
+      var filtered = this.poi_arr.slice().filter(poi => {
+        return (new RegExp(this.textFilter(),'i')).test(poi.name);
       });
+      if(this.map)
+        this.map.displayMarkers(filtered);
+      return filtered;
     }, this);
 };
 
