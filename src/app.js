@@ -17,16 +17,30 @@ class Map{
     });
     this.markers = [];
   }
+  displayMarker(latlng, isHidden){
+    latlng.then(val=>{
+      console.log(latlng);
+      var marker = this.markers.find(m=>{
+        return ((m.getPosition().lat() === val.lat)&&
+          (m.getPosition().lng() === val.lng));
+      });
+      console.log("ASDASDASD", isHidden);
+      // if(marker){
+      //   console.log(this.markers);
+      marker.setVisible(isHidden);
+      // }
+    });
+  }
   addMarker(latlng){
     latlng.then(val=>{
       if(!val) return;
-      
       this.markers.push(new google.maps.Marker({
         map: this.map,
         draggable: false,
         animation: google.maps.Animation.DROP,
         position: val
       }));
+      console.log(this.markers);
     });
   }
 }
@@ -40,11 +54,12 @@ class PoI{
 
     this.name = name;
     this.id = id;
+    this.marker = null;
     this.venue = new Promise( (resolve,reject) => {
       $.getJSON(url+id,
         {client_id: CLIENT_ID, client_secret: CLIENT_SECRET, v: YYYYMMDD},
         (result) => {
-          console.log(result);
+          //console.log(result);
           resolve(result.response.venue);
         }).fail(function(result){
           console.log('FAIL',result);
@@ -64,9 +79,10 @@ class PoI{
     // return this.venue.then({lat: this.venue.location.lat, lng: this.venue.location.lat});
     //return this.latlng;
   }
-  set marker(marker){
-    this.marker = marker;
-  }
+  // set marker(marker){
+  //   console.log("SET MARKER", marker);
+  //   this.marker = marker;
+  // }
 }
 
 
@@ -82,17 +98,21 @@ var ViewModel = function() {
       for(var i=0; i<poi_data.length; i++){
         var poi = new PoI(poi_data[i].name, poi_data[i].id);
         this.poi_arr.push(poi);
-        console.log("-->",poi);
         this.map.addMarker(poi.latlng);
       }
     }
 
 // console.log( this.poi_arr );
-
+    this.item_click = function(evt){
+      console.log(evt);
+    }
     this.textFilter = ko.observable("");
-    this.poi_filterred = ko.computed( ()=>{
+    this.poi_filterred = ko.computed(()=>{
       return this.poi_arr.slice().filter(poi => {
-        return poi.name.match(new RegExp(this.textFilter(),'i'));
+        var res = (new RegExp(this.textFilter(),'i')).test(poi.name);
+        console.log(res);
+        this.map.displayMarker(poi.latlng, res);
+        return res;
       });
     }, this);
 };

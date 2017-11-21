@@ -22,7 +22,7 @@
 				 data-bind="textInput: textFilter" />
 
 			<ul id="cat-list" data-bind="foreach: poi_filterred">
-	        <li data-bind="text: name"></li>
+	        <li data-bind="text: name, click: $parent.item_click"></li>
 	    </ul>
 			<span data-bind="text: textFilter"></span>
 		</div>
