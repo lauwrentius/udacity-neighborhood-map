@@ -38,38 +38,60 @@ export default class Map {
     }
   }
 
-  initMarkers(latlngArr, infoArr) {
-    this.markers = [];
+  initMarkers(obj) {
+    this.markers = {};
 
-    for (var i = 0; i < latlngArr.length; i++) {
-      console.log(latlngArr[i].lat)
+    for (var i = 0; i < obj.length; i++) {
+      // console.log(obj[i].latlng)
       var marker = new google.maps.Marker({
         map: this.map,
         draggable: false,
         animation: google.maps.Animation.DROP,
-        position: latlngArr[i],
+        position: obj[i].latlng,
         icon: this._icon1
       });
-      this.markers.push(marker);
-      this.infoContents.push(infoArr[i]);
+      this.markers[obj[i].id] = {
+        marker: marker,
+        venue: obj[i].venue};
+      // this.infoContents.push(infoArr[i]);
 
-      (i => {
-        marker.addListener('click', () => {
-          console.log(marker, i);
-          this._setCurrentMarkerIdx(i);
-        });
-      })(i);
+      // (idx => {
+      //   marker.addListener('click', () => {
+      //     console.log(marker, i);
+      //     this._setCurrentMarkerIdx(i);
+      //   });
+      // })(obj.id);
     }
     this._fitMarkers();
-
+    console.log( this.markers );
     return this.markers;
   }
 
-  setCurrentMarker(latlng) {
-    var idx = this.markers.findIndex(m => {
-      return m.getPosition().equals(new google.maps.LatLng(latlng));
-    });
-    this._setCurrentMarkerIdx(idx);
+  setCurrentMarker(id) {
+    console.log(id);
+    for( var key in this.markers){
+      console.log(key, id);
+      if(key === id){
+        this.markers[key].marker.setAnimation(google.maps.Animation.BOUNCE);
+        (m => {
+          setTimeout(() => {
+            m.setAnimation(null);
+          }, 1400);
+        })(this.markers[key].marker);
+        this.markers[key].marker.setIcon(this._icon2);
+        this._openInfoWindow(this.markers[key].marker, this.markers[key].venue);
+      }else{
+        this.markers[key].marker.setAnimation(null);
+        this.markers[key].marker.setIcon(this._icon1);
+      }
+    }
+    // this.markers.forEach((e,i,arr)=>{
+    //   console.log(e,i,arr);
+    // });
+    // var idx = this.markers.findIndex(m => {
+    //   return m.getPosition().equals(new google.maps.LatLng(latlng));
+    // });
+    // this._setCurrentMarkerIdx(idx);
   }
 
   _setCurrentMarkerIdx(idx) {
@@ -91,18 +113,18 @@ export default class Map {
   }
 
   _fitMarkers() {
-    if (this.markers.length == 0) {
-      this.map.setCenter(this.initLatLng);
-      this.map.setZoom(this.initZoom);
-      return;
-    }
-    var bounds = new google.maps.LatLngBounds(
-      this.markers[0].getPosition(),
-      this.markers[0].getPosition());
-
-    for (var i = 1; i < this.markers.length; i++)
-      bounds.extend(this.markers[i].getPosition());
-    this.map.fitBounds(bounds, 175);
+    // if (this.markers.length == 0) {
+    //   this.map.setCenter(this.initLatLng);
+    //   this.map.setZoom(this.initZoom);
+    //   return;
+    // }
+    // var bounds = new google.maps.LatLngBounds(
+    //   this.markers[0].getPosition(),
+    //   this.markers[0].getPosition());
+    //
+    // for (var i = 1; i < this.markers.length; i++)
+    //   bounds.extend(this.markers[i].getPosition());
+    // this.map.fitBounds(bounds, 175);
   }
 
   _openInfoWindow(marker, content) {

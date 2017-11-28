@@ -24,9 +24,6 @@ export default class Poi{
           resolve(_v);
 
         }}).fail((data, textStatus, jqXHR) => {
-          // console.log(jqXHR.responseText);
-          // console.log(result.getResponseHeader('X-RateLimit-Reset'));
-          // console.log(result.getResponseHeader());
           var response = result.responseJSON.meta;
           reject(`${response.code} <b>${response.errorType}</b><br />
             ${response.errorDetail}`);

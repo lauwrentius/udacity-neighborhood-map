@@ -35,8 +35,11 @@ var ViewModel = function() {
     Promise.all(venueObjArr).then(val=>{
       this.poi_resolved = true;
       this.markers = this.map.initMarkers(
-        this.poi_arr.slice().map(i=>i.latlng),
-        this.poi_arr.slice().map(i=>i.venue));
+        this.poi_arr.slice().map(i=>{
+          return {id: i.id,
+            latlng: i.latlng,
+            venue: i.venue};
+        }));
       for(var i=0; i<this.markers.length; i++){
         (i => {
           marker.addListener('click', () => {
@@ -54,7 +57,7 @@ var ViewModel = function() {
     this.currentItem(item);
     console.log(item.venueObj);
     if(this.poi_resolved)
-      this.map.setCurrentMarker(item.latlng);
+      this.map.setCurrentMarker(item.id);
   }
 
   this.isCurrentItem = item =>{
@@ -70,11 +73,11 @@ var ViewModel = function() {
     });
     if(this.map){
       if(this.poi_resolved){
-        var latlngArr = filtered.map(i=>{
+        var idArr = filtered.map(i=>{
           console.log(i);
-          return i.latlng});
+          return i.id});
         console.log(latlngArr);
-        this.map.displayMarkers(latlngArr)
+        this.map.displayMarkers(idArr)
       }
     }
     return filtered;
