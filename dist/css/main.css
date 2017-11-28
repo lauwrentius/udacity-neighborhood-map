@@ -1,2 +1,11 @@
 body {
-  color: red; }
+  padding-top: 15px;
+  background-color: #ccc; }
+
+.map-container #map {
+  min-height: 500px; }
+
+#cat-list .current {
+  font-weight: bold; }
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJjc3MvbWFpbi5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

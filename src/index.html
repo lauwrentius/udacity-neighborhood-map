@@ -7,37 +7,56 @@
 	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="./css/main.css">
 	<script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmznrc1aQ_MUdx2COBgro3CMI3zzfrvn4"></script>
+
 </head>
 <body>
+<div class="alert-wrapper" data-bind="foreach: alertsArr">
+	<div class="alert alert-danger alert-dismissible" role="alert">
 
-<div class="container">
-	<div class="row panel panel-default">
-		<div class="col-xs-12 panel-body">
-			<!-- <p>HELLO: <input data-bind="value: hello" /></p>
-		  <p>WORLD: <input data-bind="value: world" /></p>
-		  <h2><span data-bind="text: fullText"> </span>!</h2> -->
-			 <input type="text"
-				 class="form-control"
-				 placeholder="Point of Interest"
-				 data-bind="textInput: textFilter" />
+		<button type="button" class="close" data-bind="click: $parent.dismissAlerts" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
+	  <span data-bind="html: error"></span>
+	</div>
+</div>
+
+<div class="wrapper">
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+		<div class="container">
+			<a class="navbar-brand navbar-right" href="#" >
+				Neighborhood Map
+			</a>
+			<form class="navbar-form form-group navbar-left">
+				<input type="text"
+					class="form-control"
+					placeholder="Point of Interest"
+					data-bind="textInput: textFilter" />
+			</form>
+		</div>
+	</div>
+	</nav>
+
+<div class="container list-container">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="">
+
+			</div>
 			<ul id="cat-list" data-bind="foreach: poi_filterred">
-	        <li data-bind="text: name, click: $parent.item_click, css:{current: $parent.isCurrentItem($data) }"></li>
+	        <li>
+						<a data-bind="text: name, click: $parent.item_click, css:{current: $parent.isCurrentItem($data) }" href="javascript:void(0)"></a>
+					</li>
 	    </ul>
 			<span data-bind="text: textFilter"></span>
 		</div>
 	</div>
-	<div class="row map-container">
-		<div id="map" class="col-xs-12">
-		</div>
-	</div>
 </div>
-<span data-bind="text: currentItem"></span>
 
-<input type="text" id="typeahead" />
+<div class="map-container">
+		<div id="map" class="col-xs-12">
+</div>
+</div>
 
-	<script src="./js/bundle.js"></script>
-
-
+<script src="./js/bundle.js"></script>
 </body>
 </html>

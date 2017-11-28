@@ -1,36 +1,29 @@
 [{
   "id":"4bdc7162afe8c9b64d714f85",
   "name": "Bellevue Nursery",
-  "lat": 47.601628051029564,
-  "lng": -122.20124027145611
+  "fav": false
 },{
   "id":"49ed7b0af964a520ec671fe3",
   "name": "Kelsey Creek Park",
-  "lat": 47.60488239767633,
-  "lng": -122.1661984497623
+  "fav": false
 },{
   "id":"4df55056a809141629a8f6df",
   "name": "Bellevue Marina at Meydenbauer Bay",
-  "lat": 47.6090676726092,
-  "lng": -122.20652697820984
+  "fav": false
 },{
   "id":"4ac23711f964a520399820e3",
   "name": "Bellevue Botanical Garden",
-  "lat": 47.6090274819287,
-  "lng": -122.17981338500977
+  "fav": false
 },{
   "id":"488db78ff964a52055511fe3",
   "name": "Bellevue Downtown Park",
-  "lat": 47.61286025107819,
-  "lng": -122.20380496096878
+  "fav": false
 },{
   "id":"43915a1bf964a520582b1fe3",
   "name": "Bellevue Square",
-  "lat": 47.61567670087823,
-  "lng": -122.20388053360115
+  "fav": false
 },{
   "id":"4bcb5fc3cc8cd13aef42bfcf",
   "name": "Meydenbauer Beach Park",
-  "lat": 47.61128722396346,
-  "lng": -122.21128919296676
+  "fav": false
 }]

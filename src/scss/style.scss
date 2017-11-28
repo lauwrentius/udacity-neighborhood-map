@@ -1,12 +1,37 @@
-body{
-  padding-top: 15px;
-  background-color: #ccc;
+html,body {
+  background-color: #eee;
+  height: 100%;
+  margin: 0;
+}
+.wrapper{
+  height: 100%;
+  display: flex;
+  flex-direction:column;
+
 }
 
-.map-container #map{
-  min-height: 500px;
+.list-container{
+  padding-bottom: 15px;
+  height: 160px;
+
+  #cat-list{
+    .current{font-weight: bold;}
+  }
 }
 
-#cat-list{
-  .current{font-weight: bold;}
+.map-container{
+  flex:1;
+  #map{
+    height: 100%;
+    width: 100%;
+  }
+  .info-content{
+    line-height: 20px;
+    font-size: 14px;
+    padding-left: 50px;
+    .img-thumbnail{
+      margin: 0px 0px 0px -55px;
+      float: left;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractSass = new ExtractTextPlugin({
     filename: "css/[name].css",
@@ -41,6 +42,15 @@ module.exports = {
         }
       },
       {
+        test: /\.(jpg|gif|png)$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: './images/[name].[ext]'
+          }
+        }]
+      },
+      {
         test: /\.css$/,
         use: [{
           loader: 'file-loader',
@@ -71,5 +81,6 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery'
     })
+    // ,new UglifyJsPlugin()
   ]
 };
