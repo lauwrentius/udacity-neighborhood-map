@@ -39,15 +39,11 @@
 <div class="container list-container">
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="">
-
-			</div>
-			<ul id="cat-list" data-bind="foreach: poi_filterred">
+			<ul id="cat-list" data-bind="foreach: poiFilterred">
 	        <li>
-						<a data-bind="text: name, click: $parent.item_click, css:{current: $parent.isCurrentItem($data) }" href="javascript:void(0)"></a>
+						<a data-bind="text: name, click: $parent.itemClick, css:{current: $parent.isCurrentItem($data) }" href="javascript:void(0)"></a>
 					</li>
-	    </ul>
-			<span data-bind="text: textFilter"></span>
+	    </ul>			
 		</div>
 	</div>
 </div>

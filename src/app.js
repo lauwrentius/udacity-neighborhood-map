@@ -4,7 +4,7 @@ var ko = require("knockout");
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-theme.min.css';
 
-import  poi_data from './poi_data.json';
+import  poiData from './poi_data.json';
 
 import Map from './js/Map';
 import Poi from './js/Poi';
@@ -15,8 +15,8 @@ import './index.html';
 import './scss/style.scss';
 
 var ViewModel = function() {
-  this.poi_arr = ko.observableArray();
-  this.poi_resolved = false;
+  this.poiArr = ko.observableArray();
+  this.poiResolved = false;
   this.textFilter = ko.observable("");
   this.currentItem = ko.observable(null);
 
@@ -27,36 +27,31 @@ var ViewModel = function() {
 
   this.InitPlaces = () => {
     var venueObjArr = [];
-    for(var i=0; i<poi_data.length; i++){
-      var poi = new Poi(poi_data[i].name, poi_data[i].id);
-      this.poi_arr.push(poi);
+    for(var i=0; i<poiData.length; i++){
+      var poi = new Poi(poiData[i].name, poiData[i].id);
+      this.poiArr.push(poi);
       venueObjArr.push(poi.venueObj);
     }
     Promise.all(venueObjArr).then(val=>{
-      this.poi_resolved = true;
+      this.poiResolved = true;
       this.markers = this.map.initMarkers(
-        this.poi_arr.slice().map(i=>{
+        this.poiArr.slice().map(i=>{
           return {id: i.id,
             latlng: i.latlng,
             venue: i.venue};
         }));
-      for(var i=0; i<this.markers.length; i++){
-        (i => {
-          marker.addListener('click', () => {
-            console.log("ASDASDASD",i);
-          });
-        })(i);
-      }
+      document.addEventListener("markerClicked", e=>{
+        var poi = this.poiArr.slice().find(i=>i.id===e.detail);
+        // console.log(e, this.poiArr, poi);
+        this.itemClick(poi);
+      });
     }, rejected=>{
-      console.log(rejected);
       this.alertsArr.push({error:rejected});
     });
   }
-  // this.initItems = () => {
-  this.item_click = item => {
+  this.itemClick = item => {
     this.currentItem(item);
-    console.log(item.venueObj);
-    if(this.poi_resolved)
+    if(this.poiResolved)
       this.map.setCurrentMarker(item.id);
   }
 
@@ -66,18 +61,19 @@ var ViewModel = function() {
     return false;
   };
 
-  this.poi_filterred = ko.computed(()=>{
+  this.poiFilterred = ko.computed(()=>{
     this.currentItem(null);
-    var filtered = this.poi_arr.slice().filter(poi => {
+    if(this.map !== undefined)
+      this.map.setCurrentMarker(null);
+
+    var filtered = this.poiArr.slice().filter(poi => {
       return (new RegExp(this.textFilter(),'i')).test(poi.name);
     });
     if(this.map){
-      if(this.poi_resolved){
+      if(this.poiResolved){
         var idArr = filtered.map(i=>{
-          console.log(i);
           return i.id});
-        console.log(latlngArr);
-        this.map.displayMarkers(idArr)
+        this.map.displayMarkers(idArr);
       }
     }
     return filtered;

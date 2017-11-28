@@ -23,7 +23,7 @@ export default class Poi{
           this.venue = this._formatVenue(_v);
           resolve(_v);
 
-        }}).fail((data, textStatus, jqXHR) => {
+        }}).fail(result => {
           var response = result.responseJSON.meta;
           reject(`${response.code} <b>${response.errorType}</b><br />
             ${response.errorDetail}`);
