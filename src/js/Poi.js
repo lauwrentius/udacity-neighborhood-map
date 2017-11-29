@@ -28,10 +28,8 @@ export default class Poi{
           this.venue = this._formatVenue(_v);
           resolve(_v);
 
-        }}).fail(result => {
-          let response = result.responseJSON.meta;
-          reject(`${response.code} <b>${response.errorType}</b><br />
-            ${response.errorDetail}`);
+        }}).fail((jqXHR, textStatus, errorThrown ) => {
+          reject(`<b>Foursqaure API Error: ${textStatus}</b><br />${errorThrown}`);
         });
         return this.venue;
     });

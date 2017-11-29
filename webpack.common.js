@@ -14,7 +14,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: './js/bundle.js',
     library: 'EntryPoint',
-    libraryExport: '_entry_return_',
     libraryTarget: 'var'
   },
   module: {

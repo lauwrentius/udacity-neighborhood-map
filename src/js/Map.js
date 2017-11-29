@@ -64,13 +64,13 @@ export default class Map {
   * @param {String[]} idArr - marker id to be displayed.
   */
   displayMarkers(idArr) {
-    for( let key in this.markers){
+    Object.keys(this.markers).forEach((key) => {
       let match = idArr.find(i=>i===key);
       if (match)
         this.markers[key].marker.setVisible(true);
       else
         this.markers[key].marker.setVisible(false);
-    }
+    });
   }
 
   /**
@@ -78,7 +78,7 @@ export default class Map {
   * @param {String} id - marker id.
   */
   setCurrentMarker(id) {
-    for( let key in this.markers){
+    Object.keys(this.markers).forEach((key) => {
       if(key === id){
         this.markers[key].marker.setAnimation(google.maps.Animation.BOUNCE);
         (m => {
@@ -93,7 +93,7 @@ export default class Map {
         this.markers[key].marker.setAnimation(null);
         this.markers[key].marker.setIcon(this._icon1);
       }
-    }
+    });
     if(id === null){
       this.infoWindow.close();
       this.fitMarkers();

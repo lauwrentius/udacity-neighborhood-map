@@ -26,7 +26,6 @@
 			</div>
 		</div>
 
-
 		<nav class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
@@ -67,7 +66,6 @@
 		<div class="map-container">
 			<div id="map" class="col-xs-12"></div>
 		</div>
-
 	</div>
 	<!-- EO Wrapper -->
 
@@ -77,14 +75,9 @@
 		</li>
 	</script>
 	<script src="./js/bundle.js"></script>
-	<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmznrc1aQ_MUdx2COBgro3CMI3zzfrvn4&callback=EntryPoint.appVM.initMap" onerror="gMapError">
-	<script>
-	// var EntryPoint = _entry_return_;
-	// var x = require('EntryPoint');
-
-	console.log(EntryPoint.appVM.initMap);
-		// .initMap();
+	<script async src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmznrc1aQ_MUdx2COBgro3CMI3zzfrvn4&callback=EntryPoint.appVM.initMap" onerror="EntryPoint.appVM.gMapError.call(this, event)">
 	</script>
+
 </body>
 
 </html>

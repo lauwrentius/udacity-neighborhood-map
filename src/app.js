@@ -30,18 +30,19 @@ let ViewModel = function() {
   /**
    * @description Init Map object. Callback for the Google map load.
    */
-  // google.maps.event.addDomListener(window, 'load', () => {
-  this.initMap = () =>{
-  //   this.map = new Map();
-  //   this.InitPlaces();
-  // // });
-  //   $(window).resize(() => {
-  //     this.map.fitMarkers();
-  //   });
-  // };
-  // this.gMapError = (e) =>{
-  //   console.log("GMAP Err",e);
-    console.log("ASDASDASD");
+  this.initMap = () => {
+    this.map = new Map();
+    this.InitPlaces();
+    $(window).resize(() => {
+      this.map.fitMarkers();
+    });
+  };
+
+  /**
+   * @description Callback for the Google map error.
+   */
+  this.gMapError = (e) => {
+    this.alertsArr.push({error:`<b>Google Map Error:</b> ${e.type}`});
   };
 
   /**
@@ -79,9 +80,9 @@ let ViewModel = function() {
   }
 
   /**
-  * @description Click function whenever the user clicks one of the Poi on the list.
-  * @param {Poi} item - the poi that's clicked.
-  */
+   * @description Click function whenever the user clicks one of the Poi on the list.
+   * @param {Poi} item - the poi that's clicked.
+   */
   this.itemClick = item => {
     this.currentItem(item);
     $("#bs-navbar-collapse").collapse('hide');
@@ -90,10 +91,10 @@ let ViewModel = function() {
   }
 
   /**
-  * @description Check whether/not the item is the current Poi on the list.
-  * @param {Poi} item - the poi.
-  * @returns {boolean} - true if it's the current item
-  */
+   * @description Check whether/not the item is the current Poi on the list.
+   * @param {Poi} item - the poi.
+   * @returns {boolean} - true if it's the current item
+   */
   this.isCurrentItem = item => {
     if (item === this.currentItem())
       return true;
@@ -101,9 +102,9 @@ let ViewModel = function() {
   };
 
   /**
-  * @description Knockout computed observable. That displays the Poi filtered list.
-  * @returns {Poi[]} - array of Poi that's being displayed on the list
-  */
+   * @description Knockout computed observable. That displays the Poi filtered list.
+   * @returns {Poi[]} - array of Poi that's being displayed on the list
+   */
   this.poiFilterred = ko.computed(() => {
     this.currentItem(null);
     if (this.map !== undefined)
@@ -124,26 +125,24 @@ let ViewModel = function() {
   }, this);
 
   /**
-  * @description Dismiss alert prompts (removes the alerts from the array)
-  * @returns {Object} - alert object to be removed.
-  */
+   * @description Dismiss alert prompts (removes the alerts from the array)
+   * @returns {Object} - alert object to be removed.
+   */
   this.dismissAlerts = (item) => {
     this.alertsArr.remove(item);
   }
 };
 
+/**
+ * Data binding for VM
+ */
 let appVM = new ViewModel();
 ko.applyBindings(appVM);
 
-function initMap(){
-  console.log("ASDASDASDASD");
+/**
+ * Exports wepback library bundle for google map callback
+ */
+export {
+  appVM,
+  onerror
 }
-
-export{
-  appVM
-}
-// $("body").append('<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmznrc1aQ_MUdx2COBgro3CMI3zzfrvn4&callback=initMap" onerror="gMapError">');
-//
-// module.exports = {
-//   initMap: initMap
-// };
