@@ -30,13 +30,19 @@ let ViewModel = function() {
   /**
    * @description Init Map object. Callback for the Google map load.
    */
-  google.maps.event.addDomListener(window, 'load', () => {
-    this.map = new Map();
-    this.InitPlaces();
-  });
-  $(window).resize(() => {
-    this.map.fitMarkers();
-  });
+  // google.maps.event.addDomListener(window, 'load', () => {
+  this.initMap = () =>{
+  //   this.map = new Map();
+  //   this.InitPlaces();
+  // // });
+  //   $(window).resize(() => {
+  //     this.map.fitMarkers();
+  //   });
+  // };
+  // this.gMapError = (e) =>{
+  //   console.log("GMAP Err",e);
+    console.log("ASDASDASD");
+  };
 
   /**
    * @description Init the location of Point of interests (Poi).
@@ -124,7 +130,20 @@ let ViewModel = function() {
   this.dismissAlerts = (item) => {
     this.alertsArr.remove(item);
   }
-
 };
 
-ko.applyBindings(new ViewModel());
+let appVM = new ViewModel();
+ko.applyBindings(appVM);
+
+function initMap(){
+  console.log("ASDASDASDASD");
+}
+
+export{
+  appVM
+}
+// $("body").append('<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmznrc1aQ_MUdx2COBgro3CMI3zzfrvn4&callback=initMap" onerror="gMapError">');
+//
+// module.exports = {
+//   initMap: initMap
+// };

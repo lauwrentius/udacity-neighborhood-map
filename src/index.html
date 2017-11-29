@@ -1,86 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Products</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Udacity-neighborhood-map</title>
+
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="./css/main.css">
-	<script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmznrc1aQ_MUdx2COBgro3CMI3zzfrvn4"></script>
 
 </head>
+
 <body>
-<div class="wrapper">
+	<div class="wrapper">
 
-<div class="alert-wrapper" data-bind="foreach: alertsArr">
-	<div class="alert alert-danger alert-dismissible" role="alert">
+		<div class="alert-wrapper" data-bind="foreach: alertsArr">
+			<div class="alert alert-danger alert-dismissible" role="alert">
 
-		<button type="button" class="close" data-bind="click: $parent.dismissAlerts" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close" data-bind="click: $parent.dismissAlerts" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-	  <span data-bind="html: error"></span>
-	</div>
-</div>
+				<span data-bind="html: error"></span>
+			</div>
+		</div>
 
 
-<nav class="navbar navbar-default">
-	<div class="container">
-		<div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse"
-				data-target="#bs-navbar-collapse"
-				aria-expanded="false">
-				
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
+
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">Neighborhood Map</span>
-    </div>
+					<span class="navbar-brand">Neighborhood Map</span>
+				</div>
 
-		<div class="collapse navbar-collapse" id="bs-navbar-collapse">
-			<div class="visible-xs-block collapse-container">
-				<form class="form-group">
-					<input type="text"
-						class="form-control"
-						placeholder="Point of Interest"
-						data-bind="textInput: textFilter" />
-				</form>
-				<ul id="cat-list" data-bind="template: { name:'poi-items', foreach: poiFilterred}">
+				<div class="collapse navbar-collapse" id="bs-navbar-collapse">
+					<div class="visible-xs-block collapse-container">
+						<form class="form-group">
+							<input type="text" class="form-control" placeholder="Point of Interest" data-bind="textInput: textFilter" />
+						</form>
+						<ul class="cat-list" data-bind="template: { name:'poi-items', foreach: poiFilterred}">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container list-container hidden-xs">
+			<div class="row">
+				<div class="col-xs-12">
+					<form class="form-group">
+						<input type="text" class="form-control" placeholder="Point of Interest" data-bind="textInput: textFilter" />
+					</form>
+					<ul class="cat-list" data-bind="template: { name:'poi-items', foreach: poiFilterred}">
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-</nav>
 
-<div class="container list-container hidden-xs">
-	<div class="row">
-		<div class="col-xs-12">
-			<form class="form-group">
-				<input type="text"
-					class="form-control"
-					placeholder="Point of Interest"
-					data-bind="textInput: textFilter" />
-			</form>
-			<ul id="cat-list" data-bind="template: { name:'poi-items', foreach: poiFilterred}">
-			</ul>
+		<div class="map-container">
+			<div id="map" class="col-xs-12"></div>
 		</div>
+
 	</div>
-</div>
+	<!-- EO Wrapper -->
 
+	<script type="text/html" id="poi-items">
+		<li>
+			<a data-bind="text: name, click: $parent.itemClick, css:{current: $parent.isCurrentItem($data) }" href="javascript:void(0)"></a>
+		</li>
+	</script>
+	<script src="./js/bundle.js"></script>
+	<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBmznrc1aQ_MUdx2COBgro3CMI3zzfrvn4&callback=EntryPoint.appVM.initMap" onerror="gMapError">
+	<script>
+	// var EntryPoint = _entry_return_;
+	// var x = require('EntryPoint');
 
-
-<div class="map-container">
-		<div id="map" class="col-xs-12">
-</div>
-
-</div><!-- EO Wrapper -->
-
-<script type="text/html" id="poi-items">
-	<li>
-		<a data-bind="text: name, click: $parent.itemClick, css:{current: $parent.isCurrentItem($data) }" href="javascript:void(0)"></a>
-	</li>
-</script>
-<script src="./js/bundle.js"></script>
-
+	console.log(EntryPoint.appVM.initMap);
+		// .initMap();
+	</script>
 </body>
+
 </html>

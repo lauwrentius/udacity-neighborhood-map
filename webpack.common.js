@@ -12,7 +12,10 @@ module.exports = {
   context: path.resolve(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './js/bundle.js'
+    filename: './js/bundle.js',
+    library: 'EntryPoint',
+    libraryExport: '_entry_return_',
+    libraryTarget: 'var'
   },
   module: {
     rules: [
