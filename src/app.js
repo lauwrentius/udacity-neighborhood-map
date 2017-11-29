@@ -3,6 +3,7 @@ var ko = require("knockout");
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap-theme.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 import  poiData from './poi_data.json';
 
@@ -23,6 +24,9 @@ var ViewModel = function() {
   google.maps.event.addDomListener(window, 'load', ()=>{
     this.map = new Map();
     this.InitPlaces();
+  });
+  $(window).resize(()=>{
+    this.map.fitMarkers();
   });
 
   this.InitPlaces = () => {

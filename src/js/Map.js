@@ -10,7 +10,8 @@ export default class Map {
       center: this.initLatLng,
       draggable: false,
       zoomControl: false,
-      zoom: this.initZoom
+      zoom: this.initZoom,
+      maxZoom: this.initZoom
     });
     this.markers = [];
     this.infoContents = [];
@@ -54,9 +55,7 @@ export default class Map {
         });
       })(marker, obj[i].id);
     }
-    this._fitMarkers();
-    // console.log( this.markers );
-    // return this.markers;
+    this.fitMarkers();
   }
 
   setCurrentMarker(id) {
@@ -78,11 +77,11 @@ export default class Map {
     }
     if(id === null){
       this.infoWindow.close();
-      this._fitMarkers();
+      this.fitMarkers();
     }
   }
 
-  _fitMarkers() {
+  fitMarkers() {
     if (this.markers.length == 0) {
       this.map.setCenter(this.initLatLng);
       this.map.setZoom(this.initZoom);
@@ -90,11 +89,13 @@ export default class Map {
     }
     var bounds = null;
     for(var [key, m] of Object.entries(this.markers)){
-      if(bounds===null)
-        bounds = new google.maps.LatLngBounds(
-          m.marker.getPosition(),m.marker.getPosition());
-      else
-        bounds.extend(m.marker.getPosition());
+      if(m.marker.getVisible()){
+        if(bounds===null)
+          bounds = new google.maps.LatLngBounds(
+            m.marker.getPosition(),m.marker.getPosition());
+        else
+          bounds.extend(m.marker.getPosition());
+      }
     }
     this.map.fitBounds(bounds,20);
   }

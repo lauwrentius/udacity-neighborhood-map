@@ -7,10 +7,28 @@ html,body {
   height: 100%;
   display: flex;
   flex-direction:column;
-
 }
+.navbar{
+  border-radius: 0px;
+  margin: 0;
+  z-index: 1000;
 
+  .container-fluid{
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .navbar-form{
+    border: 0px;
+  }
+  .navbar-brand{
+    padding: 15px 0px;
+  }
+  .navbar-collapse{
+    background-color: #f8f8f8;
+  }
+}
 .list-container{
+  margin: 15px auto;
   padding-bottom: 15px;
   height: 160px;
 
@@ -18,9 +36,10 @@ html,body {
     .current{font-weight: bold;}
   }
 }
-
 .map-container{
   flex:1;
+  // display: none;
+
   #map{
     height: 100%;
     width: 100%;
