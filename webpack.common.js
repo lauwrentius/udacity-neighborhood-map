@@ -1,7 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
 
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractSass = new ExtractTextPlugin({
     filename: "css/[name].css",
@@ -14,11 +13,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: './js/bundle.js'
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-    hot: true
   },
   module: {
     rules: [
@@ -74,13 +68,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     extractSass,
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
     })
-    // ,new UglifyJsPlugin()
   ]
 };

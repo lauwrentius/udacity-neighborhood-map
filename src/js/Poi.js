@@ -1,3 +1,9 @@
+/**
+* @description Poi class for handling AJAX requests and formatting the result.
+* @constructor Requires id and name of the Poi
+* @param {String} name - of the location.
+* @param {String} id - foursquare id to the location.
+*/
 export default class Poi{
   constructor(name, id){
     let url = 'https://api.foursquare.com/v2/venues/';
@@ -9,12 +15,11 @@ export default class Poi{
     this.id = id;
     this.marker = null;
     this.venueObj = new Promise((resolve,reject) => {
-      var jqxhr = $.ajax({
+      let jqxhr = $.ajax({
         url: url+id,
         data: {client_id: CLIENT_ID, client_secret: CLIENT_SECRET, v: YYYYMMDD},
         success: (result) => {
-          var _v = result.response.venue;
-          // console.log(_v);
+          let _v = result.response.venue;
 
           this.latlng = {
             'lat': _v.location.lat,
@@ -24,15 +29,17 @@ export default class Poi{
           resolve(_v);
 
         }}).fail(result => {
-          var response = result.responseJSON.meta;
+          let response = result.responseJSON.meta;
           reject(`${response.code} <b>${response.errorType}</b><br />
             ${response.errorDetail}`);
         });
         return this.venue;
     });
-
+    /**
+    * Formats the venue to be displayed.
+    */
     this._formatVenue = (obj) => {
-      var cats = obj.categories.map(c=>c.name).join(', ');
+      let cats = obj.categories.map(c=>c.name).join(', ');
       return `<div class="info-content">
         <img class="img-thumbnail" src="${obj.bestPhoto.prefix}36${obj.bestPhoto.suffix}" />
         <a href="${obj.canonicalUrl}" target="_blank">

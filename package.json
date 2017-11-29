@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "src/app.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -29,6 +29,7 @@
     "style-loader": "^0.19.0",
     "uglifyjs-webpack-plugin": "^1.1.0",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
   }
 }

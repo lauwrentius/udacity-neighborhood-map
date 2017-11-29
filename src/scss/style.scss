@@ -21,16 +21,16 @@ html,body {
     border: 0px;
   }
   .navbar-brand{
-    padding: 15px 0px;
+    padding: 15px;
   }
-  .navbar-collapse{
+  .collapse-container{
     background-color: #f8f8f8;
+    margin: 0px -15px;
+    padding: 10px 15px;
   }
 }
 .list-container{
   margin: 15px auto;
-  padding-bottom: 15px;
-  height: 160px;
 
   #cat-list{
     .current{font-weight: bold;}
