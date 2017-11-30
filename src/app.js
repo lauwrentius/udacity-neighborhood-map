@@ -143,6 +143,5 @@ ko.applyBindings(appVM);
  * Exports wepback library bundle for google map callback
  */
 export {
-  appVM,
-  onerror
+  appVM
 }
